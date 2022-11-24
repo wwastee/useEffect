@@ -8,7 +8,7 @@ function App() {
 
   const [data , setData]=useState([])
 
-  useEffect(()=>{fetch('https://jsonplaceholder.typicode.com/'+content)
+  useEffect(()=>{fetch('https://jsonplaceholder.typicode.com/'+ content)
   .then((response) => response.json())
   .then((json) => setData(json))}, [content])
   
