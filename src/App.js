@@ -1,25 +1,38 @@
-import { useEffect, useState } from "react";
-import Bottone from "./Bottone";
-
+import { useEffect, useState } from 'react';
+import Button from './Bottone';
 function App() {
-
-  useEffect(()=>{console.log("sussamento")})
-
-  const [content, setContent] = useState("");
-  const str=['Utenti', 'Tweet' , 'Commenti']
   
-  function show(stringhe) {
+  const str= ['users', 'posts' , 'photos']
+  
+  const [content, setContent] = useState(str[0])
+
+  const [data , setData]=useState([])
+
+  useEffect(()=>{fetch('https://jsonplaceholder.typicode.com/'+content)
+  .then((response) => response.json())
+  .then((json) => setData(json))}, [content])
+  
+  console.log('Componente caricata...')  
+
+  function show(stringhe){
     setContent(stringhe)
-    console.log("aggiornato")
+    console.log('aggiornato')
   }
-  console.log("componente caricata")
-  return (
-    <div>
-      <Bottone azione={() => show(str[0])} nome="Utenti"></Bottone>
-      <Bottone azione={() => show(str[1])} nome="Tweet"></Bottone>
-      <Bottone azione={() => show(str[2])} nome="Commenti"></Bottone>
-      <div> sei un cane   {content}</div>
-    </div>
+
+  //useEffect( bevo(), [quando mangio, quando ho sete, quando corro,...])
+  //fa 'bevo' quando varia una delle dipendenze 
+
+  
+
+  return (<>
+    <Button azione={() => show(str[0])} nome='Utenti'/>
+    <Button azione={() => show(str[1])} nome='Tweet'/>
+    <Button azione={() => show(str[2])} nome='Commenti'/>
+    <div>{content}</div>
+    
+    
+    {data.map((elemento)=><pre>{JSON.stringify(elemento)}</pre> )}
+    </>
   );
 }
 

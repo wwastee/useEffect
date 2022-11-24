@@ -1,7 +1,7 @@
-function Bottone(props){
+function Button(props){
     return(
         <button onClick={props.azione}>{props.nome}</button>
     )
 }
 
-export default Bottone
+export default Button
